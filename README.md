@@ -25,6 +25,15 @@ By: M.Hanny Sabbagh <hannysabbagh[at]hotmail.com]
 Download all the files an extract them to a new folder, then run:
 
     ./zayzafoun.py
+
+or by using make
+
+    make run
+
+And to initialize the database (for easy migration tasks)
+
+    make initdb
+
 For deployment with apache2, you may see this: http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/ For deployment with nginx and others: http://flask.pocoo.org/docs/0.10/deploying/uwsgi/
 
 ### TODO:
