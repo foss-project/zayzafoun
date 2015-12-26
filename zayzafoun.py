@@ -8,6 +8,11 @@ from contextlib import closing
 app = Flask(__name__)
 app.config.from_object("config")
 
+def randStr(n):
+  from random import sample
+  from string import ascii_lowercase
+  return ''.join(sample(ascii_lowercase, n))
+
 def cleanCode(text):
   return text
 
@@ -46,38 +51,37 @@ def get_posts():
   return posts
 
 
+def single_page(pageurl):
+  showingpage = g.db.execute('select * from pages where pageurl= ?', (pageurl,))
+  n = showingpage.fetchone()
+  if n is None: return
+  pageid, pageurl, pagetitle, pagecontent, pageauthor, pagedate = n
+  page = [pageid, pageurl, pagetitle, pagecontent, pageauthor, pagedate]
+  return page
+
 def single_post(posturl):
-  showingpost = g.db.execute(
-      'select * from posts where posturl = ?', (posturl,))
-  for x in showingpost.fetchall():
-    postid, posttitle, posturl, postcontent, postauthor, postdate = x[
-        0], x[1], x[2], x[3], x[4], x[5]
-  post = [postid, posttitle, posturl, postcontent, postauthor, postdate]
+  showingpost = g.db.execute('select * from posts where posturl= ?', (posturl,))
+  n = showingpost.fetchone()
+  if n is None: return
+  postid, posturl, posttitle, postcontent, postauthor, postdate = n
+  post = [postid, posturl, posttitle, postcontent, postauthor, postdate]
   return post
 
 def editpost(posturl):
   if session.get('logged_in'):
-    getPost = g.db.execute('select * from posts where posturl = ?', (posturl,))
-    for n in getPost.fetchall():
-      posttitle, posturl, postcontent, = n[1], n[2], n[3]
-    post = [posttitle, posturl, postcontent]
+    post = single_post(posturl)
+    for i in [0, 4, 5]:
+      post.pop(i)
     return post
   else:
     abort(404)
 
-def single_page(pageurl):
-  showingpage = g.db.execute('select * from pages where pageurl= ?', (pageurl,))
-  for x in showingpage.fetchall():
-    pageid, pageurl, pagetitle, pagecontent, pageauthor, pagedate = x[0], x[1], x[2], x[3], x[4], x[5]
-  page = [pageid, pageurl, pagetitle, pagecontent, pageauthor, pagedate]
-  return page
 
 def editpage(pageurl):
   if session.get('logged_in'):
-    getPage = g.db.execute('select * from pages where pageurl = ?', (pageurl,))
-    for n in getPage.fetchall():
-      pagetitle, pageurl, pagecontent, = n[1], n[2], n[3]
-    page = [pageurl, pagetitle, pagecontent]
+    page = single_page(pageurl)
+    for i in [0, 4, 5]:
+      page.pop(i)
     return page
   else:
     abort(404)
@@ -151,7 +155,7 @@ def publish():
     if request.method == 'POST':
       if request.form["contenttype"] == "post":
         g.db.execute('insert into posts (posttitle, posturl, postcontent, postauthor) values (?, ?, ?, ?)',
-                     (request.form['title'], request.form['url'], request.form['content'], session['username']))
+                     (request.form['title'], request.form['url'] or randStr(20), request.form['content'], session['username']))
         g.db.commit()
         return redirect(request.url_root)
       else:
@@ -202,5 +206,5 @@ def logout():
   return redirect(request.url_root)
 
 if __name__ == "__main__":
-  init_db()
+  # init_db()
   app.run(host='0.0.0.0')

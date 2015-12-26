@@ -1,4 +1,5 @@
-create table if not exists posts (
+drop table if exists posts;
+create table posts (
   postid integer primary key autoincrement,
   posttitle text not null,
   posturl text not null,
@@ -7,8 +8,8 @@ create table if not exists posts (
   postdate TIMESTAMP
   DEFAULT CURRENT_TIMESTAMP
 );
-
-create table if not exists pages (
+drop table if exists pages;
+create table pages (
   pageid integer primary key autoincrement,
   pageurl text not null,
   pagetitle text not null,
