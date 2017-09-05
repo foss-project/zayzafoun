@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block header %}
+<title>Login - {{ websiteName }}</title>
+{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+	<div class="formContainer">
+		<div class='center'>
+			<form action="{{ url_for('login') }}" method=post>
+			<input type=text name=username placeholder="Username"><br/>
+			<input type=password name=password placeholder="Password"><br/>
+			<input type=submit value=Login>
+			<input type="reset", value="Reset">
+		</div>
+	</form>
+  </div>
+{% endblock %}

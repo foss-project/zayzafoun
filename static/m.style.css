@@ -1,0 +1,28 @@
+ @media only screen and (max-width: 700px) {
+    main {
+        margin-top: 2em !important;
+    }
+}
+
+ @media only screen and (max-width: 400px) {
+    main {
+        margin-top: 1em !important;
+    }
+
+    .site-desc p {
+	width: 100% !important;
+	}
+
+    nav > ul > li {
+        display: inline-flex !important;
+        padding: 5px !important;
+        margin: auto !important;
+        width: 75% !important;
+        text-align: center !important;
+    }
+
+   .single-post {
+	font-size: 18px !important;
+	text-align: center !important;
+}
+}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %} {% block header %}
+<title>{{ websiteName }}</title>
+<meta name="description" content="{{ websiteDesc }}">
+
+{% endblock %} {% block content %}
+<div class="posts-section">
+	{% for x in posts[:5] %}
+	<script>
+	function checkIfSure{{ x.postid }} () {
+	var sure = confirm("Are you sure you want to delete the post?");
+	if (sure == true) {
+			window.location.assign("{{ url_for('postdelete', posturl=x.posturl) }}");
+	}
+
+	}
+	</script>
+	<div class="single-post">
+
+		<a href="{{ url_for('show_index') }}post/{{ x.posturl }}">
+			<h2>{{ x.posttitle }}</h2>
+		</a>
+
+		<div class="post-excerpt word-wrap">{{ x.postcontent|truncate(500)|safe }}</div>
+
+	</div>
+
+
+	{% else %}
+		<h2><i class="fa fa-star fa-4x" aria-hidden="true"></i>
+</h2>
+		<h2>Yahoooo! Your website is ready to go! Start by adding a new post or page from the "New Content" page you'd see in bottom after you login.</h2>
+	{% endfor %}
+</div>
+{% endblock %}

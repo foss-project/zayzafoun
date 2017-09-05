@@ -1,0 +1,26 @@
+{% extends "layout.html" %} {% block header %}
+<title>Add New Content - {{ websiteName }}</title>
+<script type="text/javascript" src="{{ websiteUrl }}/static/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "#textarea",
+        plugins : 'advlist autolink link image lists charmap print preview textcolor emoticons directionality fullscreen table wordcount code',
+        toolbar: "undo redo | styleselect | alignleft aligncenter alignright alignjustify ltr rtl | outdent indent blockquote removeformat bullist numlist | forecolor backcolor underline strikethrough italic bold | insertdatetime code emoticons table link image",
+    });
+</script>
+{% endblock %} {% block content %} {% if session.logged_in %}
+<div class="formContainer">
+  <form action="{{ url_for('publish') }}" method=post>
+  Content Title:
+  <input type="text" name="title" placeholder="Some beautiful title here" class="publish-field" required> Content Link:
+  <input type="text" name="url" placeholder="insert-it-like-this-way-only" class="publish-field" required>
+  <textarea id="textarea" name="content" rows=10 cols=100></textarea>
+  <input type=submit value=Publish width=100>
+  Content Type:
+  <select name="contenttype">
+    <option value="post">Post</option>
+    <option value="page">Page</option>
+  </select>
+  </form>
+</div>
+{% endif %} {% endblock %}

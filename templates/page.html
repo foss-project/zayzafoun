@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block header %}
+  <title>{{ page[2] }} - {{ websiteName }}</title>
+{% endblock %}
+
+{% block content %}
+<div class="single-post">
+  <div class="post-content">{{ page[3]|safe }}</div>
+
+     		{% if session.logged_in %}
+  			<a class="button"  href="{{ url_for('pageedit', pageurl=page[1]) }}"><i class="fa fa-edit"></i> Edit</a> - <a class="button"  href="{{ url_for('pagedelete', pageurl=page[1]) }}"><i class="fa fa-times"></i> Delete</a>
+  			{% endif %}</p>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "{{ disqusName }}";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+{% endblock %}

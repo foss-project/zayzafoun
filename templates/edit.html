@@ -1,0 +1,41 @@
+{% extends "layout.html" %} {% block header %}
+<title>Edit Content - {{ websiteName }}</title>
+<script>
+    function RemoveDisabled() {
+        var removedis1 = document.getElementById('disabledtype');
+        removedis1.disabled = false;
+        var removedis2 = document.getElementById('disabledurl');
+        removedis2.disabled = false;
+    }
+</script>
+<script type="text/javascript" src="{{ url_for('show_index') }}static/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "#textarea",
+        language : 'en',
+        plugins : 'advlist autolink link image lists charmap print preview textcolor emoticons directionality fullscreen table wordcount code',
+        toolbar: "undo redo | styleselect | alignleft aligncenter alignright alignjustify ltr rtl | outdent indent blockquote removeformat bullist numlist | forecolor backcolor underline strikethrough italic bold | insertdatetime code emoticons table link image",
+    });
+</script>
+{% endblock %} {% block content %}
+{% if session.logged_in %}
+<div class="formContainer">
+  <form action="{{ url_for('doEdit') }}" method=post onSubmit="javascript: RemoveDisabled();">
+  Content Type:
+  <select name="contenttype" disabled="disabled" id="disabledtype" />
+    {% if contentType == "post" %}
+    <option value="post">Post</option>
+    {% else %}
+    <option value="page">Page</option>
+    {% endif %}
+  </select>
+  </br>
+  Content Title:
+  <input type="text" name="title" value="{{ post[0] }}" />
+   Content Link:
+  <input type="text" name="url" value="{{ post[1] }}" disabled="disabled" id="disabledurl" />
+  <textarea name="content" id="textarea" rows=10 cols=100>{{ post[2] }}</textarea>
+  <input type=submit value="Save Edit" width=100>
+  </form>
+</div>
+{% endif %} {% endblock %}

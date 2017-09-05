@@ -1,0 +1,54 @@
+{% extends "layout.html" %} {% block header %}
+<title>{{ post[1] }} - {{ websiteName }}</title>
+<meta name="description" content="{{ post[3]|safe }}">
+<script>
+function checkIfSure () {
+var sure = confirm("Are you sure you want to delete the post?");
+if (sure == true) {
+    window.location.assign("{{ url_for('postdelete', posturl=post[2]) }}");
+}}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="single-post">
+
+  <a href="{{ currentUrl }}">
+    <h2>{{ post[1] }}</h2>
+  </a>
+
+  <div class="post-meta"><p><b><i class="fa fa-calendar"></i></b> {{ post[5] }}</p></div>
+
+  <div class="word-wrap">{{ post[3]|safe }}</div>
+
+</div>
+
+
+<div class="post-footer">
+  <p>
+     {% if session.logged_in %}
+       <a class="button" href="{{ url_for('postedit', posturl=post[2]) }}"><i class="fa fa-edit"></i> Edit</a></li>
+        -
+        <a class="button" onclick="checkIfSure()"><i class="fa fa-times"></i> Delete</a>
+     {% endif %}</p>
+</div>
+
+<center>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "{{ disqusName }}";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</center>
+
+{% endblock %}

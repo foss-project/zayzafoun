@@ -1,0 +1,15 @@
+{% extends "layout.html" %} {% block header %}
+<title>Archive - {{ websiteName }}</title>
+{% endblock %} {% block content %}
+  <ul class="archive">
+	{% for x in posts %}
+   <li><a href="/post/{{x.posturl}}">{{ x.posttitle}} </a> - {{ x.postdate[0:10] }} </li>
+
+
+	{% else %}
+		<h3>No posts published yet.</h3>
+		<p>This website is still new, wait for content to come.</p>
+	{% endfor %}
+</ul>
+
+{% endblock %}
