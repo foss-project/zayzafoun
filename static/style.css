@@ -137,6 +137,11 @@ code {
   width: 100%;
   clear: both;
 }
+.publish-field {
+  padding: 7px !important;
+  margin: 11px 0px !important;
+  width: 97.1% !important;
+}
 .button {
   padding: 0 5px 0 5px;
   -webkit-border-radius: 5px;
@@ -156,4 +161,61 @@ code {
 .post-meta {
   color: #999;
   font-size: 17px;
+}
+input[type='submit'], input[type='reset'] {
+  width: 15%;
+  padding: 12px 30px;
+  margin: 20px 10px;
+  background-color: #555555;
+  border: none;
+  transition: .3s ease-out .3s;
+  color: #FFF;
+}
+input[name='username'], input[name='password'] {
+  padding: 7px;
+  margin:20px;
+  width: 60%;
+}
+input[type='submit']:hover, input[type='reset']:hover {
+  background-color: #e7e7e7;
+  transition: .3s ease-out .3s;
+  color: #000;
+}
+.center {
+  text-align: center;
+}
+.footer-panel {
+  transition: .3s ease-out .3s;
+  text-decoration: none !important;
+}
+.footer-panel:hover {
+  transition: .3s ease-out .3s;
+  color: green !important;
+}
+.word-wrap {
+  word-wrap: break-word;
+}
+a[onclick="checkIfSure()"], a[href="/post/page/edit"] {
+  cursor: pointer;
+}
+.cpanel-field {
+  width: 70% !important;
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+  padding: 7px !important;
+}
+.notice {
+    margin-left: 103px;
+    text-align: left;
+    margin-top: -4px;
+    margin-bottom: 25px;
+}
+.box-alert {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
 }

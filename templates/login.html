@@ -6,11 +6,18 @@
 {% block content %}
 <h2>Login</h2>
 	<div class="formContainer">
-	<form action="{{ url_for('login') }}" method=post>
-		Username:<input type=text name=username>
-		Password:<input type=password name=password>
-		<input type=submit value=Login>
+		<div class='center'>
+			{% if errorLength != 0 %}
+			<div class="box-alert">
+				<strong>Warning!</strong> username or password is incorrect.
+			</div>
+			{% endif %}
+			<form action="{{ url_for('login') }}" method=post>
+			<input type=text name=username placeholder="Username"><br/>
+			<input type=password name=password placeholder="Password"><br/>
+			<input type=submit value=Login>
+			<input type="reset", value="Reset">
+		</div>
 	</form>
   </div>
-
-	{% endblock %}
+{% endblock %}

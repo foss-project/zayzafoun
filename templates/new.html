@@ -11,17 +11,15 @@
 {% endblock %} {% block content %} {% if session.logged_in %}
 <div class="formContainer">
   <form action="{{ url_for('publish') }}" method=post>
+  Content Title:
+  <input type="text" name="title" placeholder="Some beautiful title here" class="publish-field" required> Content Link:
+  <input type="text" name="url" placeholder="insert-it-like-this-way-only" class="publish-field" required>
+  <textarea id="textarea" name="content" rows=10 cols=100></textarea>
+  <input type=submit value=Publish width=100>
   Content Type:
   <select name="contenttype">
     <option value="post">Post</option>
     <option value="page">Page</option>
   </select>
   </br>
-  Content Title:
-  <input type="text" name="title" placeholder="Some beautiful title here"> Content Link:
-  <input type="text" name="url" placeholder="insert-it-like-this-way-only">
-  <textarea id="textarea" name="content" rows=10 cols=100></textarea>
-  <input type=submit value=Publish width=100>
-  </form>
-</div>
 {% endif %} {% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %} {% block header %}
+<title>Control panel | {{ websiteName }}</title>
+<meta name="description" content="{{ websiteDesc }}">
+{% endblock %} {% block content %} {% if session.logged_in %}
+<div class="formContainer">
+  <div class='center'>
+    <form action="/saveConfig" method="post">
+      Website Name: <br/><input type="text" name="websiteName" class="cpanel-field" value="{{ websiteName }}" required><br/>
+      Website Description: <br/><input type='text' name="websiteDesc" class="cpanel-field" value="{{ websiteDesc }}" required><br/>
+      Debug Status: <br/><select class="cpanel-field" name='debugStatus'>
+                          {% if debugStatus  == True %}
+                            <option class='selected'>ON</option>
+                            <option>OFF</option>
+                          {% else %}
+                            <option class='selected'>OFF</option>
+                            <option>ON</option>
+                          {% endif %}
+                        </select><br/>
+      User Name: <br/><input type='text' name='username' class="cpanel-field" value="{{ username }}" required><br/>
+      Password: <br/><input type='password' name='password' class="cpanel-field" value="{{ password }}" required><br/>
+      Disqus User Name: <br/><input type="text" name='disqusName' class="cpanel-field" value='{{ disqusName }}' required><br/>
+      <input type="submit" value="Save">
+    </form>
+  </div>
+</div>
+{% endif %} {% endblock %}

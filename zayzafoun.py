@@ -5,7 +5,10 @@ from flask import Flask, request, session, g, redirect, url_for, abort, render_t
 from contextlib import closing
 from werkzeug.contrib.atom import AtomFeed
 from urlparse import urljoin
-
+from os.path import realpath
+from hashlib import sha1
+from imp import reload
+import config
 # Creating the application.
 app = Flask(__name__)
 app.config.from_object("config")
@@ -191,24 +194,59 @@ def doEdit():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+  error = ''
   if session.get('logged_in'):
     return redirect(request.url_root)
   if request.method == 'POST':
     if request.form['username'] != app.config['USERNAME']:
       error = 'Invalid username'
-    elif request.form['password'] != app.config['PASSWORD']:
+    elif sha1(request.form['password']).hexdigest() != app.config['PASSWORD']:
       error = 'Invalid password'
     else:
       session['logged_in'] = True
       session['username'] = app.config['USERNAME']
       return redirect(request.url_root)
-  return render_template('login.html', pages=get_pages())
-
+  errorLength = len(error)
+  return render_template('login.html', pages=get_pages(), errorLength = errorLength)
 
 @app.route('/logout')
 def logout():
   session.pop('logged_in', None)
   return redirect(request.url_root)
+
+@app.route('/Cpanel')
+def controlPanel():
+    if session.get('logged_in'):
+        reload(config)
+        from config import WEBSITENAME, WEBSITEDESC, DATABASE, DEBUG, USERNAME, PASSWORD, DISQUSNAME
+        return render_template('cpanel.html', websiteName = WEBSITENAME, websiteDesc = WEBSITEDESC, databasePath = DATABASE, debugStatus = DEBUG, username = USERNAME, password = PASSWORD, disqusName = DISQUSNAME)
+    else:
+        return abort(404)
+
+@app.route('/saveConfig', methods=['POST','GET'])
+def saveConfig():
+    if session.get('logged_in'):
+        if request.method == 'POST':
+            data = '# -*- coding: utf-8 -*-'
+            data += '\nimport os'
+            data += '\nWEBSITENAME = "%s"' % request.form['websiteName']
+            data += '\nWEBSITEDESC = "%s"' % request.form['websiteDesc']
+            data += '\nDATABASE = os.path.join(os.getcwd(), "zayzafoun.db")'
+            if request.form['debugStatus'] == 'ON':
+                data += '\nDEBUG = True'
+            else:
+                data += '\nDEBUG = False'
+            data += '\nSECRET_KEY = os.urandom(20)'
+            data += '\nUSERNAME = "%s"' % request.form['username']
+            data += '\nPASSWORD = "%s" # If you forget to modify this. You probably deserve it.' % sha1(request.form['password']).hexdigest()
+            data += "\nDISQUSNAME = '%s' # Don't forget to change the disqus name! Or the comments section won't be customized to yours, you should go to disqus.com and register a website there." % request.form['disqusName']
+            with open('config.py','w') as f:
+                f.write(data)
+            return render_template('configsaved.html')
+        else:
+            abort(404)
+    else:
+        abort(404)
 
 if __name__ == "__main__":
   init_db()

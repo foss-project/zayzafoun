@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="auto">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png" sizes="16x16"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png" sizes="16x16">
   {% block header %} {% endblock %}
   <meta name="author" content="{{ websiteName }}">
-  
 </head>
 
 <body>
-
-  
   <nav>
     <a href="{{ websiteUrl }}"><h1>{{ websiteName }}</h1></a>
     <dev class="site-desc"><p>{{ websiteDesc }}</p></dev>
@@ -32,17 +28,17 @@
 
   <footer>
     <ul>
-      <li><a href="{{ websiteUrl }}{{ url_for('recent_feed') }}"><i class="fa fa-rss"></i> RSS Feed</a></li>
+      <li><a class="footer-panel" href="{{ websiteUrl }}{{ url_for('recent_feed') }}"><i class="fa fa-rss"></i> RSS Feed</a></li>
       {% if session.logged_in %}
-      <li><a href="{{ websiteUrl }}{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> New Content</a></li>
-      <li><a href="{{ websiteUrl }}{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+      <li><a class="footer-panel" href="{{ websiteUrl }}{{ url_for('publish') }}"><i class="fa fa-plus-square "></i> New Content</a></li>
+      <li><a class="footer-panel" href="{{ websiteUrl }}{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+      <li><a class="footer-panel" href="{{ websiteUrl }}{{ url_for('controlPanel') }}"><i class="fa fa-user-o"></i> Cpanel</a></li>
       {% else %}
-      <li><a href="{{ websiteUrl }}{{ url_for('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
+      <li><a class="footer-panel" href="{{ websiteUrl }}{{ url_for('login') }}"><i class="fa fa-sign-in"></i> Login</a></li>
       {% endif %}
-      <li><a href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> Archive</a></li>
+      <li><a class="footer-panel" href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> Archive</a></li>
     </ul>
-    
-    
+
     <p>Powered by <a href="https://github.com/mhsabbagh/zayzafoun">Zayzafoun</a></p>
   </footer>
 

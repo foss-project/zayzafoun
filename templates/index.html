@@ -15,16 +15,14 @@
 	}
 	</script>
 	<div class="single-post">
-	  
 		<a href="{{ url_for('show_index') }}post/{{ x.posturl }}">
 			<h2>{{ x.posttitle }}</h2>
-		</a> 
-		
-		<div class="post-excerpt">{{ x.postcontent|truncate(500)|safe }}</div>
-		
+		</a>
+
+		<div class="post-excerpt word-wrap">{{ x.postcontent|truncate(500)|safe }}</div>
+
 	</div>
 
-	
 	{% else %}
 		<h2><i class="fa fa-star fa-4x" aria-hidden="true"></i>
 </h2>
