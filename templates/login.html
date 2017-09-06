@@ -7,6 +7,11 @@
 <h2>Login</h2>
 	<div class="formContainer">
 		<div class='center'>
+			{% if errorLength != 0 %}
+			<div class="box">
+				<strong>Warning!</strong> username or password is incorrect.
+			</div>
+			{% endif %}
 			<form action="{{ url_for('login') }}" method=post>
 			<input type=text name=username placeholder="Username"><br/>
 			<input type=password name=password placeholder="Password"><br/>

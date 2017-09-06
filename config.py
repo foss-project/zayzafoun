@@ -6,5 +6,5 @@ DATABASE = os.path.join(os.getcwd(), "zayzafoun.db")
 DEBUG = True
 SECRET_KEY = os.urandom(20)
 USERNAME = "admin"
-PASSWORD = "7505d64a54e061b7acd54ccd58b49dc43500b635" # If you forget to modify this. You probably deserve it.
+PASSWORD = "435b41068e8665513a20070c033b08b9c66e4332" # If you forget to modify this. You probably deserve it.
 DISQUSNAME = 'tajribython' # Don't forget to change the disqus name! Or the comments section won't be customized to yours, you should go to disqus.com and register a website there.

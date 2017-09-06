@@ -9,7 +9,6 @@ from os.path import realpath
 from hashlib import sha1
 from imp import reload
 import config
-
 # Creating the application.
 app = Flask(__name__)
 app.config.from_object("config")
@@ -195,18 +194,20 @@ def doEdit():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if session.get('logged_in'):
-        return redirect(request.url_root)
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif sha1(request.form['password']).hexdigest() != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            session['username'] = app.config['USERNAME']
-            return redirect(request.url_root)
-    return render_template('login.html', pages=get_pages())
+  error = ''
+  if session.get('logged_in'):
+    return redirect(request.url_root)
+  if request.method == 'POST':
+    if request.form['username'] != app.config['USERNAME']:
+      error = 'Invalid username'
+    elif sha1(request.form['password']).hexdigest() != app.config['PASSWORD']:
+      error = 'Invalid password'
+    else:
+      session['logged_in'] = True
+      session['username'] = app.config['USERNAME']
+      return redirect(request.url_root)
+  errorLength = len(error)
+  return render_template('login.html', pages=get_pages(), errorLength = errorLength)
 
 @app.route('/logout')
 def logout():

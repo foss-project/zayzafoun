@@ -210,3 +210,12 @@ a[onclick="checkIfSure()"], a[href="/post/page/edit"] {
     margin-top: -4px;
     margin-bottom: 25px;
 }
+.box-alert {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}

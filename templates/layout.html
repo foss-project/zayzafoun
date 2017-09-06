@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="auto">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,12 +9,9 @@
   <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png" sizes="16x16">
   {% block header %} {% endblock %}
   <meta name="author" content="{{ websiteName }}">
-
 </head>
 
 <body>
-
-
   <nav>
     <a href="{{ websiteUrl }}"><h1>{{ websiteName }}</h1></a>
     <dev class="site-desc"><p>{{ websiteDesc }}</p></dev>
@@ -42,7 +38,6 @@
       {% endif %}
       <li><a class="footer-panel" href="{{ websiteUrl }}{{ url_for('archive') }}"><i class="fa fa-history"></i> Archive</a></li>
     </ul>
-
 
     <p>Powered by <a href="https://github.com/mhsabbagh/zayzafoun">Zayzafoun</a></p>
   </footer>
