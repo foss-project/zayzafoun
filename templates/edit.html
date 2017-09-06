@@ -21,7 +21,13 @@
 {% if session.logged_in %}
 <div class="formContainer">
   <form action="{{ url_for('doEdit') }}" method=post onSubmit="javascript: RemoveDisabled();">
-  Content Type:
+  Content Title:
+  <input type="text" name="title" class='publish-field' value="{{ post[0] }}" />
+   Content Link:
+  <input type="text" name="url" value="{{ post[1] }}" disabled="disabled" id="disabledurl" />
+  <textarea name="content" id="textarea" class='publish-field' rows=10 cols=100>{{ post[2] }}</textarea>
+  <input type=submit value="Save Edit" width=100>
+   Content Type:
   <select name="contenttype" disabled="disabled" id="disabledtype" />
     {% if contentType == "post" %}
     <option value="post">Post</option>
@@ -30,12 +36,7 @@
     {% endif %}
   </select>
   </br>
-  Content Title:
-  <input type="text" name="title" value="{{ post[0] }}" />
-   Content Link:
-  <input type="text" name="url" value="{{ post[1] }}" disabled="disabled" id="disabledurl" />
-  <textarea name="content" id="textarea" rows=10 cols=100>{{ post[2] }}</textarea>
-  <input type=submit value="Save Edit" width=100>
+
   </form>
 </div>
 {% endif %} {% endblock %}
